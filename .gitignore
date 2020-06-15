@@ -1,0 +1,33 @@
+# netbeans
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+**/nbproject/build-impl.xml
+**/nbproject/genfiles.properties
+**/nbproject/jax-ws.xml
+**/nbproject/jaxws-build.xml
+TicketerRestfulService/nbproject/jax-ws.xml
+TicketerRestfulService/nbproject/jaxws-build.xml
+build/*
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+/Ticketer-Restful-API/build/
+
+# android studio
+**/*.iml
+**/.gradle
+**/local.properties
+**/.idea/caches
+**/.idea/libraries
+**/.idea/modules.xml
+**/.idea/workspace.xml
+**/.idea/navEditor.xml
+**/.idea/assetWizardSettings.xml
+**/.DS_Store
+**/build
+**/captures
+**/.externalNativeBuild
+**/.cxx
+app/.project
