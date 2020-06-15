@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FetchTicketsTask extends AsyncTask<String, Void, Integer> {
+public class FetchLocationsTask extends AsyncTask<String, Void, Integer> {
     public static final String API_URL = "http://10.0.2.2:8080/TicketerRestfulService/api";
 
     @SuppressLint("StaticFieldLeak")
@@ -34,7 +34,7 @@ public class FetchTicketsTask extends AsyncTask<String, Void, Integer> {
 
     private List<Map<String, String>> mTicketList;
 
-    public FetchTicketsTask(ListFragment fragment) {
+    public FetchLocationsTask(ListFragment fragment) {
         this.mFragment = fragment;
         this.mContext = mFragment.getContext();
     }

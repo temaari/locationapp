@@ -6,7 +6,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TicketActivity">
+    tools:context=".MainActivity">
 
     <FrameLayout
         android:id="@+id/frame"
@@ -14,22 +14,24 @@
         android:layout_height="wrap_content">
 
         <fragment
-            android:id="@+id/fragment_ticket"
-            class="com.example.ticketer.TicketFragment"
+            android:id="@+id/fragment_location"
+            class="com.example.ticketer.LocationFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/feed_btn_add"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/updateLocation_button"
+            android:text="@string/updateLocation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="32dp"
-            android:clickable="true"
-            app:backgroundTint="@color/colorPrimaryDark"
-            app:rippleColor="@color/colorPrimaryDark"
-            android:src="@drawable/ic_baseline_add_24" />
+            android:layout_marginTop="10dp" />
 
+        <Button
+            android:id="@+id/getLocation_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/getLocation"
+            android:layout_marginTop="100dp"/>
     </FrameLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

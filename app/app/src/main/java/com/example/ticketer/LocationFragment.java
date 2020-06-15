@@ -1,24 +1,21 @@
 package com.example.ticketer;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.ListFragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.ListFragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.ticketer.Tasks.FetchTicketsTask;
+import com.example.ticketer.Tasks.FetchLocationsTask;
 
-public class TicketFragment extends ListFragment {
+public class LocationFragment extends ListFragment {
 
     private SwipeRefreshLayout refreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ticket, container, false);
+        View view = inflater.inflate(R.layout.fragment_location, container, false);
 
         refreshLayout = view.findViewById(R.id.pullToRefresh);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -41,6 +38,6 @@ public class TicketFragment extends ListFragment {
     }
 
     private void refresh() {
-        new FetchTicketsTask(this).execute();
+        new FetchLocationsTask(this).execute();
     }
 }
