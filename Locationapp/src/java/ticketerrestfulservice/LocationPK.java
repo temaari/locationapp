@@ -8,20 +8,20 @@ package ticketerrestfulservice;
 import java.io.Serializable;
 
 
-public class TicketPK implements Serializable {
+public class LocationPK implements Serializable {
 
     public Integer id;
 
-    public TicketPK(Integer id) {
+    public LocationPK(Integer id) {
         this.id = id;
     }
     
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof TicketPK)) {
+        if (obj == null || !(obj instanceof LocationPK)) {
             return false;
         } else {
-            TicketPK other = (TicketPK) obj;
+            LocationPK other = (LocationPK) obj;
             return id.equals(other.id);
         }
     }

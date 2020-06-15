@@ -25,7 +25,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class UpdateLocationTask extends AsyncTask<String, Void, Integer> {
-    public static final String API_URL = "http://10.0.2.2:8080/TicketerRestfulService/api";
+    public static final String API_URL = "http://10.0.2.2:8080/Locationapp/api";
 
     @SuppressLint("StaticFieldLeak")
     private Context mContext;
@@ -39,13 +39,13 @@ public class UpdateLocationTask extends AsyncTask<String, Void, Integer> {
     protected Integer doInBackground(String... parameters) {
         int responseCode = 0;
         try {
-            String postData = URLEncoder.encode("title", "UTF-8") + "=" + URLEncoder.encode(parameters[0], "UTF-8") + "&";
-            postData += URLEncoder.encode("description", "UTF-8") + "=" + URLEncoder.encode(parameters[1], "UTF-8") + "&";
+            String postData = URLEncoder.encode("longitude", "UTF-8") + "=" + URLEncoder.encode(parameters[0], "UTF-8") + "&";
+            postData += URLEncoder.encode("altitude", "UTF-8") + "=" + URLEncoder.encode(parameters[1], "UTF-8") + "&";
             postData += URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(parameters[2], "UTF-8");
 
             Log.d("hi", postData);
 
-            URL url = new URL(API_URL + "/tickets/");
+            URL url = new URL(API_URL + "/userlocation/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);

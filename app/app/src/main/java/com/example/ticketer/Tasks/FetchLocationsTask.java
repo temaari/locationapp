@@ -25,14 +25,14 @@ import java.util.List;
 import java.util.Map;
 
 public class FetchLocationsTask extends AsyncTask<String, Void, Integer> {
-    public static final String API_URL = "http://10.0.2.2:8080/TicketerRestfulService/api";
+    public static final String API_URL = "http://10.0.2.2:8080/Locationapp/api";
 
     @SuppressLint("StaticFieldLeak")
     private Context mContext;
 
     private ListFragment mFragment;
 
-    private List<Map<String, String>> mTicketList;
+    private List<Map<String, String>> mLocationList;
 
     public FetchLocationsTask(ListFragment fragment) {
         this.mFragment = fragment;
@@ -43,7 +43,7 @@ public class FetchLocationsTask extends AsyncTask<String, Void, Integer> {
     protected Integer doInBackground(String... strings) {
         int responseCode = 0;
         try {
-            URL url = new URL(API_URL + "/tickets/");
+            URL url = new URL(API_URL + "/userlocation/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-Type", "application/json");
@@ -68,21 +68,21 @@ public class FetchLocationsTask extends AsyncTask<String, Void, Integer> {
             conn.disconnect();
 
             if (json != null) {
-                JSONArray jsonArray = (JSONArray) json.get("tickets");
-                mTicketList = new ArrayList<>(jsonArray.length());
+                JSONArray jsonArray = (JSONArray) json.get("userlocation");
+                mLocationList = new ArrayList<>(jsonArray.length());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                    String title = (String) jsonObject.get("title");
-                    String desc = (String) jsonObject.get("description");
+                    String longitude = (String) jsonObject.get("longitude");
+                    String altitude = (String) jsonObject.get("altitude");
                     String username = (String) jsonObject.get("username");
                     String date = (String) jsonObject.get("creation_date");
 
-                    Map<String, String> ticket = new HashMap<>();
+                    Map<String, String> location = new HashMap<>();
 
-                    ticket.put("Title", title);
-                    ticket.put("Desc", desc + " by: " + username + " - " + date);
+                    location.put("longitude", "Altitude: " + altitude + ", longitude: " + longitude);
+                    location.put("altitude", username + " - " + date);
 
-                    mTicketList.add(ticket);
+                    mLocationList.add(location);
                 }
             }
         } catch (IOException | JSONException e) {
@@ -95,17 +95,17 @@ public class FetchLocationsTask extends AsyncTask<String, Void, Integer> {
     protected void onPostExecute(Integer responseCode) {
         String msg;
         if ((responseCode >= 200) && (responseCode <= 299)) {
-            msg = "Tickets Fetched";
+            msg = "Locations Fetched";
 
-            SimpleAdapter adapter = new SimpleAdapter(mContext, mTicketList,
+            SimpleAdapter adapter = new SimpleAdapter(mContext, mLocationList,
                     android.R.layout.simple_list_item_2,
-                    new String[]{"Title", "Desc"},
+                    new String[]{"longitude", "altitude"},
                     new int[]{android.R.id.text1, android.R.id.text2});
             mFragment.setListAdapter(adapter);
             adapter.notifyDataSetChanged();
 
         } else {
-            msg = "Failed to fetch tickets";
+            msg = "Failed to fetch locations";
         }
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }

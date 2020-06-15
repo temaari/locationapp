@@ -28,7 +28,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 public class UserLogin extends AsyncTask<String, Void, Integer> {
-    public static final String API_URL = "http://10.0.2.2:8080/TicketerRestfulService/api";
+    public static final String API_URL = "http://10.0.2.2:8080/Locationapp/api";
 
     private boolean success;
 

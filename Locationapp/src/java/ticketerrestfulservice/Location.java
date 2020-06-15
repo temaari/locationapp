@@ -15,9 +15,9 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tickets")
-@IdClass(value = TicketPK.class)
-public class Ticket implements Serializable {
+@Table(name = "userlocation")
+@IdClass(value = LocationPK.class)
+public class Location implements Serializable {
 
     // private LocalDateTime creationDate;
     private static final long serialVersionUID = 1L;
@@ -25,40 +25,40 @@ public class Ticket implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Integer id;
-    @Column(name = "title")
-    private String title;
-    @Column(name = "description")
-    private String description;
+    @Column(name = "longitude")
+    private String longitude;
+    @Column(name = "altitude")
+    private String altitude;
     @Column(name = "username")
     private String username;
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
-    public Ticket() {
+    public Location() {
 
     }
 
-    public Ticket(String title, String description, String username) {
-        this.title = title;
-        this.description = description;
+    public Location(String longitude, String altitude, String username) {
+        this.longitude = longitude;
+        this.altitude = altitude;
         this.username = username;
         this.creationDate = LocalDateTime.now();
     }
 
-    public String getTitle() {
-        return title;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAltitude() {
+        return altitude;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAltitude(String altitude) {
+        this.altitude = altitude;
     }
 
     public String getUsername() {
@@ -77,19 +77,19 @@ public class Ticket implements Serializable {
 
     public String getXMLString() {
         StringBuilder buffer = new StringBuilder();
-        buffer.append("<ticket>");
-        buffer.append("<title>").append(getTitle()).append("</title>");
-        buffer.append("<description>").append(getDescription()).append("</description>");
+        buffer.append("<userlocation>");
+        buffer.append("<longitude>").append(getLongitude()).append("</longitude>");
+        buffer.append("<altitude>").append(getAltitude()).append("</altitude>");
         buffer.append("<username>").append(getUsername()).append("</username>");
         buffer.append("<creation_date>").append(getCreationDateString()).append("</creation_date>");
-        buffer.append("</ticket>");
+        buffer.append("</userlocation>");
         return buffer.toString();
     }
 
     public JsonObject getJSONObject() {
         JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
-        jsonBuilder.add("title", title);
-        jsonBuilder.add("description", description);
+        jsonBuilder.add("longitude", longitude);
+        jsonBuilder.add("altitude", altitude);
         jsonBuilder.add("username", username);
         jsonBuilder.add("creation_date", getCreationDateString());
         return jsonBuilder.build();

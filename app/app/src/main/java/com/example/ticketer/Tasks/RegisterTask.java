@@ -25,7 +25,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class RegisterTask extends AsyncTask<String, Void, Integer> {
-    public static final String API_URL = "http://10.0.2.2:8080/TicketerRestfulService/api";
+    public static final String API_URL = "http://10.0.2.2:8080/Locationapp/api";
 
     @SuppressLint("StaticFieldLeak")
     private Context mContext;

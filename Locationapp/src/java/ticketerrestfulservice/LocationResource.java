@@ -22,59 +22,59 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
-import ticketerrestfulservice.Ticket;
-import ticketerrestfulservice.TicketBean;
+import ticketerrestfulservice.Location;
+import ticketerrestfulservice.LocationBean;
 
 
 @Named // so that dependency injection can be used for the EJB
-@Path("/tickets")
-public class TicketResource {
+@Path("/userlocation")
+public class LocationResource {
 
     @EJB
-    private TicketBean ticketBean;
+    private LocationBean locationBean;
     @Context
     private UriInfo context;
     private static final char QUOTE = '\"';
 
-    public TicketResource() {
+    public LocationResource() {
     }
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public String getAllTixketsXML() {
+    public String getAllLocationXML() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        buffer.append("<tickets uri=").append(QUOTE).append(
+        buffer.append("<userlocation uri=").append(QUOTE).append(
                 context.getAbsolutePath()).append(QUOTE).append(">");
-        Collection<Ticket> allTickets = ticketBean.getAllTickets();
-        for (Ticket ticket : allTickets) {
-            buffer.append(ticket.getXMLString());
+        Collection<Location> allLocation = locationBean.getAllLocation();
+        for (Location location : allLocation) {
+            buffer.append(location.getXMLString());
         }
-        buffer.append("</tickets>");
+        buffer.append("</userlocation>");
         return buffer.toString();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllTicketsJSON() { 
+    public String getAllLocationJSON() { 
         JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();        
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         
-        Collection<Ticket> allTickets = ticketBean.getAllTickets();
-        for (Ticket ticket : allTickets) {
-            arrayBuilder.add(ticket.getJSONObject());
+        Collection<Location> allLocation = locationBean.getAllLocation();
+        for (Location location : allLocation) {
+            arrayBuilder.add(location.getJSONObject());
         }        
-        JsonObject json = jsonBuilder.add("tickets", arrayBuilder).build();
+        JsonObject json = jsonBuilder.add("userlocation", arrayBuilder).build();
         
         return json.toString();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void addNewTicket(MultivaluedMap<String, String> formParams) {
-        String title = formParams.getFirst("title");
-        String description = formParams.getFirst("description");
+    public void addNewLocation(MultivaluedMap<String, String> formParams) {
+        String longitude = formParams.getFirst("longitude");
+        String altitude = formParams.getFirst("altitude");
         String username = formParams.getFirst("username");
-        ticketBean.addTicket(title, description, username);
+        locationBean.updateLocation(longitude, altitude, username);
     }
 }
