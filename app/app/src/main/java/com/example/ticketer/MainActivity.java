@@ -5,14 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        username = getIntent().getStringExtra("username");
+        TextView loggedinUsers = (TextView) this.findViewById(R.id.textView);
+        loggedinUsers.append(" ");
+        loggedinUsers.append(username);
 
         Button updateButton = (Button) this.findViewById(R.id.updateLocation_button);
         Button getLocationButton = (Button) this.findViewById(R.id.getLocation_button);
