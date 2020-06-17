@@ -15,8 +15,15 @@ import androidx.core.app.ActivityCompat;
 import com.example.ticketer.LoginActivity;
 import com.example.ticketer.MainActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -47,22 +54,49 @@ public class UpdateLocationTask extends AsyncTask<String, Void, Integer> {
 
             URL url = new URL(API_URL + "/userlocation/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("PUT");
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+
+            // Read the server response and return it as JSON
+            InputStream inputStream = conn.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null) {
+                Log.d("lineend", line);
+                sb.append(line);
+
+            }
+            JSONObject json = new JSONObject(sb.toString());
+            JSONArray someString = json.getJSONArray("userlocation");
+            Log.d("lineend", someString.toString());
+            for (int i = 0; i < someString.length(); i++) {
+                JSONObject o = someString.getJSONObject(i);
+                String suser = o.getString("username");
+                Log.d("line", suser);
+            }
+
+            Log.d("lineend", "this is:");
+
+
+            bufferedReader.close();
+            inputStream.close();
 
             // Send the request to the server
-            OutputStream outputStream = conn.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
-            bufferedWriter.write(updateData);
-            bufferedWriter.flush();
-            bufferedWriter.close();
-            outputStream.close();
+//            OutputStream outputStream = conn.getOutputStream();
+//            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+//            bufferedWriter.write(updateData);
+//            bufferedWriter.flush();
+//            bufferedWriter.close();
+//            outputStream.close();
 
             responseCode = conn.getResponseCode();
+            Log.d("hi", "This is the response code"+responseCode);
+
 
             conn.disconnect();
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -73,9 +107,6 @@ public class UpdateLocationTask extends AsyncTask<String, Void, Integer> {
         String msg;
         if ((responseCode >= 200) && (responseCode <= 299)) {
             msg = "Location was updated successful.";
-            Intent myIntent = new Intent(mContext, MainActivity.class);
-            ActivityCompat.finishAffinity((Activity) mContext);
-            mContext.startActivity(myIntent);
         } else {
             msg = "Location failed to update.";
         }

@@ -45,15 +45,15 @@ public class RegisterActivity extends AppCompatActivity {
 
         Button mRegisterBtn = findViewById(R.id.register_btn);
 
-        mRegisterBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentMessage = new Intent(RegisterActivity.this, LoginActivity.class);
-                String message = passingUsername.getText().toString();
-                intentMessage.putExtra("username_key", message);
-                attemptRegister();
-            }
-        });
+            mRegisterBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intentMessage = new Intent(RegisterActivity.this, LoginActivity.class);
+                    String message = passingUsername.getText().toString();
+                    intentMessage.putExtra("username_key", message);
+                    attemptRegister();
+                }
+            });
     }
 
     private void attemptRegister() {

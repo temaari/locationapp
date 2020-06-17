@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,7 +22,7 @@ import android.widget.Toast;
 import com.example.ticketer.Tasks.FetchLocationsTask;
 import com.example.ticketer.Tasks.UpdateLocationTask;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, LocationListener{
+public class MainActivity extends AppCompatActivity implements LocationListener{
 
     private String username;
     private FragmentRefreshListener fragmentRefreshListener;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String UPDATES_BUNDLE_KEY = "WantsLocationUpdates";
     private TextView statusOfPermission;
     public static final int PERMISSION_REQUEST_CODE = 1;
-    private Location lastKnownLocation;
+    private Location lastKnownLocation, updatedLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button updateButton = (Button) this.findViewById(R.id.updateLocation_button);
         Button getLocationButton = (Button) this.findViewById(R.id.getLocation_button);
 
-        updateButton.setOnClickListener(this);
-        getLocationButton.setOnClickListener(this);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptUpdate();
+            }
+        });
+        getLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptGetLocation();
+            }
+        });
 
         statusOfPermission = (TextView) findViewById(R.id.statusOfPermission);
 
@@ -63,32 +74,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.updateLocation_button:
-                if (wantLocationUpdates)
-                {
-                    wantLocationUpdates = false;
-                    stopGPS();
-                }
-                else
-                {
-                    wantLocationUpdates = true;
-                    startGPS();
-//                    new UpdateLocationTask(this).execute();
-                }
-            break;
-            case R.id.getLocation_button:
-            LocationFragment locationFragment = new LocationFragment();
+    public void attemptUpdate() {
+        if (wantLocationUpdates)
+        {
+            wantLocationUpdates = false;
+            stopGPS();
+        }
+        else
+        {
+            wantLocationUpdates = true;
+            startGPS();
+            UpdateLocationTask updateLocationTask = new UpdateLocationTask(this);
+            updateLocationTask.execute(Double.toString(lastKnownLocation.getLongitude()), Double.toString(lastKnownLocation.getAltitude()), username);
+        }
+
+    }
+    public void attemptGetLocation() {
+        LocationFragment locationFragment = new LocationFragment();
 //                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //                transaction.setReorderingAllowed(false);
 //                transaction.detach(locationFragment).attach(locationFragment).commit();
-                if(getFragmentRefreshListener()!= null){
-                    getFragmentRefreshListener().onRefresh();
-                }
-            break;
-        }
+            if(getFragmentRefreshListener()!= null){
+                getFragmentRefreshListener().onRefresh();
+            }
     }
 
     //For refreshing lists of Location Fragments
@@ -213,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onLocationChanged(Location location)
     {
         statusOfPermission.setText(location.toString());
+        updatedLocation = location;
         Log.i(MainActivity.class.getName(), "Location: "+location);
     }
 
