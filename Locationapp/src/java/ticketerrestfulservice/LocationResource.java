@@ -72,14 +72,18 @@ public class LocationResource {
     }
 
     @PUT
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public String addNewLocation(MultivaluedMap<String, String> formParams) {
-        String longitude = formParams.getFirst("longitude");
-        String altitude = formParams.getFirst("altitude");
-        String username = formParams.getFirst("username");
-        Location updateLocation = new Location(longitude, altitude, username);
-        locationBean.updateLocation(longitude, altitude, username);
-        
-        return updateLocation.toString();
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void addNewLocation(String formParams) {
+        System.out.println("this is where it is" + formParams);
+        JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();        
+
+//        JsonObject jObject = .add("userlocation", formParams);
+
+//        String longitude = formParams.getFirst("longitude");
+//        String altitude = formParams.getFirst("altitude");
+//        String username = formParams.getFirst("username");
+//        System.out.println("this is where it is" + longitude +" "+ altitude +" "+username);
+//        Location updateLocation = new Location(longitude, altitude, username);
+//        locationBean.updateLocation(longitude, altitude, username);        
     }
 }

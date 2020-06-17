@@ -84,8 +84,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         {
             wantLocationUpdates = true;
             startGPS();
-            UpdateLocationTask updateLocationTask = new UpdateLocationTask(this);
-            updateLocationTask.execute(Double.toString(lastKnownLocation.getLongitude()), Double.toString(lastKnownLocation.getAltitude()), username);
+            if (!Double.toString(lastKnownLocation.getLongitude()).equals(null)) {
+                UpdateLocationTask updateLocationTask = new UpdateLocationTask(this);
+                updateLocationTask.execute(Double.toString(lastKnownLocation.getLongitude()), Double.toString(lastKnownLocation.getAltitude()), username);
+            }
+
         }
 
     }

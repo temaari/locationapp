@@ -70,18 +70,19 @@ public class UpdateLocationTask extends AsyncTask<String, Void, Integer> {
             }
             JSONObject json = new JSONObject(sb.toString());
             JSONArray someString = json.getJSONArray("userlocation");
+            JSONObject o = null;
             for (int i = 0; i < someString.length(); i++) {
-                JSONObject o = someString.getJSONObject(i);
+                o = someString.getJSONObject(i);
                 String suser = o.getString("username");
 
                 if (suser.equals(parameters[2])) {
                     o.put("longitude", parameters[0]);
                     o.put("altitude", parameters[1]);
                     json.put("userlocation", someString);
-                    Log.d("suserline", json.toString());
-
+                    Log.d("suserline", o.toString());
+                    break;
                 }
-
+            Log.d("end", "this is the end"+o.toString());
             }
 
             bufferedReader.close();
@@ -99,7 +100,7 @@ public class UpdateLocationTask extends AsyncTask<String, Void, Integer> {
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
             OutputStreamWriter osw = new OutputStreamWriter(con.getOutputStream());
-            osw.write(json.toString());
+            osw.write(o.toString());
             osw.flush();
             osw.close();
 
