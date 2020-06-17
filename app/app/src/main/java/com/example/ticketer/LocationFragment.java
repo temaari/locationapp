@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.fragment.app.ListFragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -26,6 +28,13 @@ public class LocationFragment extends ListFragment {
             }
         });
 
+        ((MainActivity)getActivity()).setFragmentRefreshListener(new MainActivity.FragmentRefreshListener() {
+            @Override
+            public void onRefresh() {
+                myToast();
+            }
+        });
+
         refresh();
 
         return view;
@@ -39,5 +48,9 @@ public class LocationFragment extends ListFragment {
 
     private void refresh() {
         new FetchLocationsTask(this).execute();
+    }
+
+    public void myToast() {
+        Toast.makeText(this.getContext(), "This is called from MainActivity", Toast.LENGTH_SHORT).show();
     }
 }

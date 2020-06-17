@@ -11,6 +11,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String username;
+    private FragmentRefreshListener fragmentRefreshListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +37,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "Update Location", Toast.LENGTH_SHORT).show();
             break;
             case R.id.getLocation_button:
-                Toast.makeText(this, "Get list of users location", Toast.LENGTH_SHORT).show();
+            LocationFragment locationFragment = new LocationFragment();
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.setReorderingAllowed(false);
+//                transaction.detach(locationFragment).attach(locationFragment).commit();
+                if(getFragmentRefreshListener()!= null){
+                    getFragmentRefreshListener().onRefresh();
+                }
             break;
         }
+    }
+
+    public FragmentRefreshListener getFragmentRefreshListener() {
+        return fragmentRefreshListener;
+    }
+
+    public void setFragmentRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.fragmentRefreshListener = fragmentRefreshListener;
+    }
+
+    public interface FragmentRefreshListener{
+        void onRefresh();
     }
 }
