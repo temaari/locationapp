@@ -14,7 +14,9 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
+import static javax.ws.rs.HttpMethod.PUT;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -69,14 +71,14 @@ public class LocationResource {
         return json.toString();
     }
 
-    @POST
+    @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public String addNewLocation(MultivaluedMap<String, String> formParams) {
         String longitude = formParams.getFirst("longitude");
         String altitude = formParams.getFirst("altitude");
         String username = formParams.getFirst("username");
         Location updateLocation = new Location(longitude, altitude, username);
-        locationBean.updateLocation(updateLocation);
+        locationBean.updateLocation(longitude, altitude, username);
         
         return updateLocation.toString();
     }

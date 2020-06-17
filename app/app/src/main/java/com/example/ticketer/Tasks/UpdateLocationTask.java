@@ -70,32 +70,43 @@ public class UpdateLocationTask extends AsyncTask<String, Void, Integer> {
             }
             JSONObject json = new JSONObject(sb.toString());
             JSONArray someString = json.getJSONArray("userlocation");
-            Log.d("lineend", someString.toString());
             for (int i = 0; i < someString.length(); i++) {
                 JSONObject o = someString.getJSONObject(i);
                 String suser = o.getString("username");
-                Log.d("line", suser);
+
+                if (suser.equals(parameters[2])) {
+                    o.put("longitude", parameters[0]);
+                    o.put("altitude", parameters[1]);
+                    json.put("userlocation", someString);
+                    Log.d("suserline", json.toString());
+
+                }
+
             }
-
-            Log.d("lineend", "this is:");
-
 
             bufferedReader.close();
             inputStream.close();
 
             // Send the request to the server
-//            OutputStream outputStream = conn.getOutputStream();
-//            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
-//            bufferedWriter.write(updateData);
-//            bufferedWriter.flush();
-//            bufferedWriter.close();
-//            outputStream.close();
-
             responseCode = conn.getResponseCode();
             Log.d("hi", "This is the response code"+responseCode);
 
 
             conn.disconnect();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("PUT");
+            con.setDoOutput(true);
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "application/json");
+            OutputStreamWriter osw = new OutputStreamWriter(con.getOutputStream());
+            osw.write(json.toString());
+            osw.flush();
+            osw.close();
+
+            responseCode = con.getResponseCode();
+            Log.d("seond", "code"+responseCode);
+
+            con.disconnect();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

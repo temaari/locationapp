@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     private static final String UPDATES_BUNDLE_KEY = "WantsLocationUpdates";
     private TextView statusOfPermission;
     public static final int PERMISSION_REQUEST_CODE = 1;
-    private Location lastKnownLocation, updatedLocation;
+    private Location lastKnownLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,7 +221,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     public void onLocationChanged(Location location)
     {
         statusOfPermission.setText(location.toString());
-        updatedLocation = location;
         Log.i(MainActivity.class.getName(), "Location: "+location);
     }
 

@@ -16,20 +16,21 @@ public class LocationBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Location updateLocation(Location updateLocation) {
-        // String jpqlCommand = "Update "+longiture+" "+alttitude+"FROM Location u WHERE u.username="+username +"";
-        // Query query = entityManager.createQuery(jpqlCommand);
-        // return query.getResultList();
+    public void updateLocation(String l, String a, String username) {
+         String jpqlCommand = "UPDATE Location u SET u.longiture = :l "+", u.altitude = :a "+" WHERE u.username= :username";
+         Query query = entityManager.createQuery(jpqlCommand);
+         query.executeUpdate();
+//         return query.getResultList();
         
-        String jpqlCommand = "Update Location SET longiture='"+updateLocation.getLongitude()+"', altitude='"+updateLocation.getAltitude()+"' WHERE username="+updateLocation.getUsername();
-        Query query = entityManager.createQuery(jpqlCommand);
-        
-        if(query.executeUpdate() == 0) {
-            throw new RuntimeException("Failed to Update location");
-        }
-        else {
-            return updateLocation;
-        }
+//        String jpqlCommand = "Update Location SET longiture='"+updateLocation.getLongitude()+"', altitude='"+updateLocation.getAltitude()+"' WHERE username="+updateLocation.getUsername();
+//        Query query = entityManager.createQuery(jpqlCommand);
+//        
+//        if(query.executeUpdate() == 0) {
+//            throw new RuntimeException("Failed to Update location");
+//        }
+//        else {
+//            return updateLocation;
+//        }
     }
 
     public Location getLocation(Integer id) {
