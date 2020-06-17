@@ -37,4 +37,18 @@
     <string name="updateLocation">Update your Location</string>
     <string name="getLocation">Get a list of users latest location.</string>
     <string name="logged_in_as">Logged in as:</string>
+    <string name="statusOfPermission">"Status of Permission: "</string>
+
+<!--    Location-based Strings-->
+    <string name="status">Location status</string>
+    <string name="button_start">Start GPS</string>
+    <string name="button_stop">Stop GPS</string>
+    <string name="unknown">Unknown</string>
+    <string name="provider_disabled">Location provider disabled</string>
+    <string name="provider_enabled">Location provider enabled</string>
+    <string name="provider_status_changed">Location provider status changed</string>
+    <string name="permissions_denied">Location permissions denied</string>
+    <string name="request_permission_title">Permission Request</string>
+    <string name="request_permission_text">Need access to GPS</string>
+    <string name="request_permission_positive">Allow</string>
 </resources>

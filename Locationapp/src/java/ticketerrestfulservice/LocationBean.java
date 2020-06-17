@@ -16,10 +16,20 @@ public class LocationBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Location updateLocation(String longitude, String altitude, String username) {
-        Location newLocation = new Location(longitude, altitude, username);
-        entityManager.persist(newLocation); // note already in transaction
-        return newLocation;
+    public Location updateLocation(Location updateLocation) {
+        // String jpqlCommand = "Update "+longiture+" "+alttitude+"FROM Location u WHERE u.username="+username +"";
+        // Query query = entityManager.createQuery(jpqlCommand);
+        // return query.getResultList();
+        
+        String jpqlCommand = "Update Location SET longiture='"+updateLocation.getLongitude()+"', altitude='"+updateLocation.getAltitude()+"' WHERE username="+updateLocation.getUsername();
+        Query query = entityManager.createQuery(jpqlCommand);
+        
+        if(query.executeUpdate() == 0) {
+            throw new RuntimeException("Failed to Update location");
+        }
+        else {
+            return updateLocation;
+        }
     }
 
     public Location getLocation(Integer id) {

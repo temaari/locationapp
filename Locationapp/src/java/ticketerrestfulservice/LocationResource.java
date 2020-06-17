@@ -71,10 +71,13 @@ public class LocationResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void addNewLocation(MultivaluedMap<String, String> formParams) {
+    public String addNewLocation(MultivaluedMap<String, String> formParams) {
         String longitude = formParams.getFirst("longitude");
         String altitude = formParams.getFirst("altitude");
         String username = formParams.getFirst("username");
-        locationBean.updateLocation(longitude, altitude, username);
+        Location updateLocation = new Location(longitude, altitude, username);
+        locationBean.updateLocation(updateLocation);
+        
+        return updateLocation.toString();
     }
 }

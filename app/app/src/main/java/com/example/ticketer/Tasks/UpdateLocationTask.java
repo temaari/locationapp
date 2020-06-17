@@ -39,22 +39,22 @@ public class UpdateLocationTask extends AsyncTask<String, Void, Integer> {
     protected Integer doInBackground(String... parameters) {
         int responseCode = 0;
         try {
-            String postData = URLEncoder.encode("longitude", "UTF-8") + "=" + URLEncoder.encode(parameters[0], "UTF-8") + "&";
-            postData += URLEncoder.encode("altitude", "UTF-8") + "=" + URLEncoder.encode(parameters[1], "UTF-8") + "&";
-            postData += URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(parameters[2], "UTF-8");
+            String updateData = URLEncoder.encode("longitude", "UTF-8") + "=" + URLEncoder.encode(parameters[0], "UTF-8") + "&";
+            updateData += URLEncoder.encode("altitude", "UTF-8") + "=" + URLEncoder.encode(parameters[1], "UTF-8") + "&";
+            updateData += URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(parameters[2], "UTF-8");
 
-            Log.d("hi", postData);
+            Log.d("hi", updateData);
 
             URL url = new URL(API_URL + "/userlocation/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("PUT");
             conn.setDoOutput(true);
             conn.setDoInput(true);
 
             // Send the request to the server
             OutputStream outputStream = conn.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
-            bufferedWriter.write(postData);
+            bufferedWriter.write(updateData);
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();
@@ -72,12 +72,12 @@ public class UpdateLocationTask extends AsyncTask<String, Void, Integer> {
     protected void onPostExecute(Integer responseCode) {
         String msg;
         if ((responseCode >= 200) && (responseCode <= 299)) {
-            msg = "Ticket creation was successful";
+            msg = "Location was updated successful.";
             Intent myIntent = new Intent(mContext, MainActivity.class);
             ActivityCompat.finishAffinity((Activity) mContext);
             mContext.startActivity(myIntent);
         } else {
-            msg = "Ticket creation failed";
+            msg = "Location failed to update.";
         }
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
