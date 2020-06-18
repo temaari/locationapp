@@ -5,6 +5,7 @@
  */
 package ticketerrestfulservice;
 
+import java.io.StringReader;
 import java.util.Collection;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -13,6 +14,7 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 import javax.ws.rs.GET;
 import static javax.ws.rs.HttpMethod.PUT;
 import javax.ws.rs.POST;
@@ -75,15 +77,16 @@ public class LocationResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void addNewLocation(String formParams) {
         System.out.println("this is where it is" + formParams);
-        JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();        
+        JsonReader jsonReader = Json.createReader(new StringReader(formParams));
+        JsonObject object = jsonReader.readObject();
+        jsonReader.close();
+        
+        String longitude = object.getString("longitude"); 
+        String altitude = object.getString("altitude"); 
+        String username = object.getString("username"); 
 
-//        JsonObject jObject = .add("userlocation", formParams);
-
-//        String longitude = formParams.getFirst("longitude");
-//        String altitude = formParams.getFirst("altitude");
-//        String username = formParams.getFirst("username");
-//        System.out.println("this is where it is" + longitude +" "+ altitude +" "+username);
-//        Location updateLocation = new Location(longitude, altitude, username);
-//        locationBean.updateLocation(longitude, altitude, username);        
+        System.out.println("CHECK JSON: Longitude:"+longitude+", Altitude: "+altitude+", Username: "+username);
+        Location updateLocation = new Location(longitude, altitude, username);
+        locationBean.updateLocation(longitude, altitude, username);       
     }
 }

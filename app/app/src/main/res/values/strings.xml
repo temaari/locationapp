@@ -37,7 +37,7 @@
     <string name="updateLocation">Update your Location</string>
     <string name="getLocation">Get a list of users latest location.</string>
     <string name="logged_in_as">Logged in as:</string>
-    <string name="statusOfPermission">"Status of Permission: "</string>
+    <string name="gpsLocation">"Current location: "</string>
 
 <!--    Location-based Strings-->
     <string name="status">Location status</string>

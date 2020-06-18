@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     private FragmentRefreshListener fragmentRefreshListener;
     private boolean wantLocationUpdates;
     private static final String UPDATES_BUNDLE_KEY = "WantsLocationUpdates";
-    private TextView statusOfPermission;
+    private TextView gpsLocation;
     public static final int PERMISSION_REQUEST_CODE = 1;
     private Location lastKnownLocation;
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             }
         });
 
-        statusOfPermission = (TextView) findViewById(R.id.statusOfPermission);
+        gpsLocation = (TextView) findViewById(R.id.gpsLocation);
 
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(UPDATES_BUNDLE_KEY))
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             wantLocationUpdates = false;
         if (!hasLocationPermission())
         {
-            statusOfPermission.setText(R.string.permissions_denied);
+            gpsLocation.setText(R.string.permissions_denied);
             Log.w(MainActivity.class.getName(),
                     "Location permissions denied");
         }
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     }
     public void attemptGetLocation() {
-        LocationFragment locationFragment = new LocationFragment();
+//        LocationFragment locationFragment = new LocationFragment();
 //                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //                transaction.setReorderingAllowed(false);
 //                transaction.detach(locationFragment).attach(locationFragment).commit();
@@ -160,6 +160,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         }
     }
 
+    public static String convertDoubleToString(double doubleValue)
+    {
+        return String.valueOf(doubleValue);
+    }
+
     private void startGPS()
     {
         LocationManager locationManager = (LocationManager)
@@ -170,13 +175,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             locationManager.requestLocationUpdates(provider,0,0, (LocationListener) this);
             lastKnownLocation
                     = locationManager.getLastKnownLocation(provider);
-            if (lastKnownLocation != null)
-                statusOfPermission.setText(lastKnownLocation.toString());
-//            toggleButton.setText(R.string.button_stop);
+            if (lastKnownLocation != null) {
+
+                String longitude = convertDoubleToString(lastKnownLocation.getLongitude());
+                String altitude = convertDoubleToString(lastKnownLocation.getAltitude());
+                String userLocation = "Longitude: " +longitude+ ", Altitude: " + altitude;
+                gpsLocation.setText(userLocation);
+            }
         }
         catch (SecurityException e)
         {
-            statusOfPermission.setText(R.string.permissions_denied);
+            gpsLocation.setText(R.string.permissions_denied);
             Log.w(MainActivity.class.getName(),
                     "Security Exception: " + e);
         }
@@ -187,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         LocationManager locationManager = (LocationManager)
                 this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.removeUpdates((LocationListener) this);
-//        toggleButton.setText(R.string.button_start);
     }
 
     @Override
@@ -223,26 +231,31 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     // implementation of onLocationChanged method
     public void onLocationChanged(Location location)
     {
-        statusOfPermission.setText(location.toString());
-        Log.i(MainActivity.class.getName(), "Location: "+location);
+        String longitude = convertDoubleToString(lastKnownLocation.getLongitude());
+        String altitude = convertDoubleToString(lastKnownLocation.getAltitude());
+        String userLocation = " Longitude: " +longitude+ " \n Altitude: " + altitude;
+        Log.d("userlocation", userLocation);
+        gpsLocation.setText(userLocation);
+//        gpsLocation.setText(location.toString());
+//        Log.i(MainActivity.class.getName(), "Location: "+location);
     }
 
     // implementation of onProviderDisabled method
     public void onProviderDisabled(String provider)
     {
-        statusOfPermission.setText(R.string.provider_disabled);
+        gpsLocation.setText(R.string.provider_disabled);
     }
 
     // implementation of onProviderEnabled method
     public void onProviderEnabled(String provider)
     {
-        statusOfPermission.setText(R.string.provider_enabled);
+        gpsLocation.setText(R.string.provider_enabled);
     }
 
     // implementation of onStatusChanged method
     public void onStatusChanged(String provider, int status,
                                 Bundle extras)
     {
-        statusOfPermission.setText(R.string.provider_status_changed);
+        gpsLocation.setText(R.string.provider_status_changed);
     }
 }
