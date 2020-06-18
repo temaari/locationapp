@@ -20,30 +20,15 @@ public class LocationBean {
     private EntityManager entityManager;
 
     public void updateLocation(String l, String a, String username) {
-//        String jpqlCommand = "UPDATE Location u SET u.longiture = :l "+", u.altitude = :a "+" WHERE u.username= :username";
-        String jpqlCommand = "UPDATE Location u SET u.longitude = '0', u.altitude = '0' WHERE u.username = 'jason'";
-//        System.out.println("UPDATELOCATION: Longitude:"+l+", Altitude: "+a+", Username: "+username);
+        String jpqlCommand = "UPDATE Location u SET u.longitude = :l "+", u.altitude = :a "+" WHERE u.username= :username";
+        System.out.println("UPDATELOCATION: Longitude:"+l+", Altitude: "+a+", Username: "+username);
         
         
         Query query = entityManager.createQuery(jpqlCommand);
-        
+        query.setParameter("l", l);
+        query.setParameter("a", a);
+        query.setParameter("username", username);
         query.executeUpdate();
-//        query.setParameter("l", l);
-//        query.setParameter("a", a);
-//        query.setParameter("username", username);
-//        query.executeUpdate();
-
-//         return query.getResultList();
-
-//        String jpqlCommand = "UPDATE Location u SET u.longitude = :l "+", u.altitude = :a "+" WHERE u.username= :username";
-//        System.out.println("UPDATELOCATION: Longitude:"+l+", Altitude: "+a+", Username: "+username);
-//        
-//        
-//        Query query = entityManager.createQuery(jpqlCommand);
-//        query.setParameter("l", l);
-//        query.setParameter("a", a);
-//        query.setParameter("username", username);
-//        query.executeUpdate();
     }
 
     public Location getLocation(Integer id) {
