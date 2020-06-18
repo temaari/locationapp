@@ -1,4 +1,4 @@
-package com.example.ticketer;
+package com.example.locationapp;
 
 import android.content.Context;
 

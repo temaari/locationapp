@@ -1,4 +1,4 @@
-package com.example.ticketer.Tasks;
+package com.example.locationapp.Tasks;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,8 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
-import com.example.ticketer.LoginActivity;
-import com.example.ticketer.MainActivity;
+import com.example.locationapp.LoginActivity;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

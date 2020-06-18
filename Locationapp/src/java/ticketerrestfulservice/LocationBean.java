@@ -23,7 +23,7 @@ public class LocationBean {
         String jpqlCommand = "UPDATE Location u SET u.longitude = :l "+", u.altitude = :a "+" WHERE u.username= :username";
         System.out.println("UPDATELOCATION: Longitude:"+l+", Altitude: "+a+", Username: "+username);
         
-        
+//        String jpqlCommand = "UPDATE Location u SET u.longitude = '5', u.altitude = '5' WHERE u.username= :username";
         Query query = entityManager.createQuery(jpqlCommand);
         query.setParameter("l", l);
         query.setParameter("a", a);

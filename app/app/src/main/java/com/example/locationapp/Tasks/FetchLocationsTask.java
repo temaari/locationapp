@@ -1,4 +1,4 @@
-package com.example.ticketer.Tasks;
+package com.example.locationapp.Tasks;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -79,7 +79,7 @@ public class FetchLocationsTask extends AsyncTask<String, Void, Integer> {
 
                     Map<String, String> location = new HashMap<>();
 
-                    location.put("longitude", "Altitude: " + altitude + ", longitude: " + longitude);
+                    location.put("longitude", " Latitude: " + altitude + "\n Longitude: " + longitude);
                     location.put("altitude", username + " - " + date);
 
                     mLocationList.add(location);

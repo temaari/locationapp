@@ -1,4 +1,4 @@
-package com.example.ticketer;
+package com.example.locationapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,10 +16,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ticketer.Tasks.FetchLocationsTask;
-import com.example.ticketer.Tasks.UpdateLocationTask;
+import com.example.locationapp.Tasks.UpdateLocationTask;
 
 public class MainActivity extends AppCompatActivity implements LocationListener{
 
@@ -86,17 +83,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             startGPS();
             if (!Double.toString(lastKnownLocation.getLongitude()).equals(null)) {
                 UpdateLocationTask updateLocationTask = new UpdateLocationTask(this);
-                updateLocationTask.execute(Double.toString(lastKnownLocation.getLongitude()), Double.toString(lastKnownLocation.getAltitude()), username);
+                updateLocationTask.execute(Double.toString(lastKnownLocation.getLongitude()), Double.toString(lastKnownLocation.getLatitude()), username);
             }
 
         }
 
     }
     public void attemptGetLocation() {
-//        LocationFragment locationFragment = new LocationFragment();
-//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                transaction.setReorderingAllowed(false);
-//                transaction.detach(locationFragment).attach(locationFragment).commit();
             if(getFragmentRefreshListener()!= null){
                 getFragmentRefreshListener().onRefresh();
             }
@@ -178,8 +171,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             if (lastKnownLocation != null) {
 
                 String longitude = convertDoubleToString(lastKnownLocation.getLongitude());
-                String altitude = convertDoubleToString(lastKnownLocation.getAltitude());
-                String userLocation = "Longitude: " +longitude+ ", Altitude: " + altitude;
+                String latitude = convertDoubleToString(lastKnownLocation.getLatitude());
+                String userLocation = "Longitude: " +longitude+ ", Latitude: " + latitude;
                 gpsLocation.setText(userLocation);
             }
         }
@@ -232,8 +225,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     public void onLocationChanged(Location location)
     {
         String longitude = convertDoubleToString(lastKnownLocation.getLongitude());
-        String altitude = convertDoubleToString(lastKnownLocation.getAltitude());
-        String userLocation = " Longitude: " +longitude+ " \n Altitude: " + altitude;
+        String latitude = convertDoubleToString(lastKnownLocation.getLatitude());
+        String userLocation = " Longitude: " +longitude+ " \n Latitude: " + latitude;
         Log.d("userlocation", userLocation);
         gpsLocation.setText(userLocation);
 //        gpsLocation.setText(location.toString());

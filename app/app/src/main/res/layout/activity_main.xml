@@ -30,7 +30,7 @@
 
             <fragment
                 android:id="@+id/fragment_location"
-                class="com.example.ticketer.LocationFragment"
+                class="com.example.locationapp.LocationFragment"
                 android:layout_width="600dp"
                 android:layout_height="700dp"
                 android:layout_marginTop="176dp"

@@ -1,24 +1,16 @@
-package com.example.ticketer;
+package com.example.locationapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.ticketer.Tasks.UserLogin;
+import com.example.locationapp.Tasks.UserLogin;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText mUsernameView;
@@ -47,17 +39,6 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
-
-        Button mReigsterButotn = findViewById(R.id.register_button);
-
-        mReigsterButotn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(getBaseContext(), RegisterActivity.class);
-                startActivity(myIntent);
-            }
-        });
-
     }
 
     @Override
