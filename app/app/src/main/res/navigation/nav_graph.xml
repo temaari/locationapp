@@ -7,44 +7,20 @@
 
     <fragment
         android:id="@+id/MainFragment"
-        android:name="com.example.ticketer.MainActivity"
+        android:name="com.example.locationapp.MainActivity"
         android:label="@string/main_fragment_label"
         tools:layout="@layout/activity_main">
         <action
             android:id="@+id/action_MainFragment_to_LoginFragment"
             app:destination="@id/LoginFragment" />
-        <action
-            android:id="@+id/action_MainFragment_to_RegisterFragment"
-            app:destination="@id/RegisterFragment" />
-        <action
-            android:id="@+id/action_MainFragment_to_TicketFragment"
-            app:destination="@id/TicketFragment" />
     </fragment>
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.example.ticketer.LoginActivity"
+        android:name="com.example.locationapp.LoginActivity"
         android:label="@string/Login_fragment_label"
         tools:layout="@layout/activity_login">
         <action
             android:id="@+id/action_LoginFragment_to_MainFragment"
-            app:destination="@id/MainFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/TicketFragment"
-        android:name="com.example.ticketer.TicketActivity"
-        android:label="@string/ticket_fragment_label"
-        tools:layout="@layout/activity_ticket">
-        <action
-            android:id="@+id/action_TicketFragment_to_MainFragment"
-            app:destination="@id/MainFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/RegisterFragment"
-        android:name="com.example.ticketer.RegisterActivity"
-        android:label="@string/register_fragment_label"
-        tools:layout="@layout/activity_register">
-        <action
-            android:id="@+id/action_RegisterFragment_to_MainFragment"
             app:destination="@id/MainFragment" />
     </fragment>
 </navigation>
