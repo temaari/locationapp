@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ticketerrestfulservice;
+package locationrestfulservice;
 
 import java.io.StringReader;
 import java.util.Collection;
@@ -26,8 +26,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
-import ticketerrestfulservice.Location;
-import ticketerrestfulservice.LocationBean;
+import locationrestfulservice.Location;
+import locationrestfulservice.LocationBean;
 
 
 @Named // so that dependency injection can be used for the EJB

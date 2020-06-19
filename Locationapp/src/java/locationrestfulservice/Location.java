@@ -1,4 +1,4 @@
-package ticketerrestfulservice;
+package locationrestfulservice;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

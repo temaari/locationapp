@@ -2,7 +2,7 @@
  * JAX-RS class overridden to specifify the application path for
  * RESTful services
  */
-package ticketerrestfulservice;
+package locationrestfulservice;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -23,7 +23,7 @@ public class ApplicationConfig extends Application {
      * out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(ticketerrestfulservice.LocationResource.class);
-        resources.add(ticketerrestfulservice.UsersResource.class);
+        resources.add(locationrestfulservice.LocationResource.class);
+        resources.add(locationrestfulservice.UsersResource.class);
     }
 }

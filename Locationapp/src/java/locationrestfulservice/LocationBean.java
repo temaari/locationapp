@@ -1,4 +1,4 @@
-package ticketerrestfulservice;
+package locationrestfulservice;
 
 import java.util.List;
 import javax.ejb.LocalBean;
